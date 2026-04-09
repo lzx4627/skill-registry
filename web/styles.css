@@ -417,6 +417,24 @@ code {
   gap: 20px;
 }
 
+@media (min-width: 1121px) {
+  .rail,
+  .content {
+    max-height: calc(100svh - 18px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+
+  .rail {
+    padding-right: 6px;
+  }
+
+  .content {
+    padding-right: 6px;
+  }
+}
+
 .section {
   padding: 22px;
 }
@@ -655,6 +673,15 @@ mark.search-hit {
 
   .rail {
     position: static;
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .content {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
   }
 
   .section-head,
