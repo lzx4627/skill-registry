@@ -139,8 +139,17 @@ body::before {
 .masthead-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.85fr);
+  align-items: center;
   gap: 24px;
   padding-top: 26px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  padding-block: 12px;
 }
 
 .intro h1,
