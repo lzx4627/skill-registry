@@ -126,10 +126,15 @@ body::before {
   color: var(--accent);
 }
 
+.eyebrow {
+  margin-bottom: 12px;
+}
+
 .stamp {
   margin: 0;
   padding-top: 14px;
   border-top: 1px solid var(--line);
+  text-align: right;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;
@@ -681,6 +686,10 @@ mark.search-hit {
 
   .topbar-actions {
     flex-shrink: 0;
+  }
+
+  .stamp {
+    text-align: left;
   }
 
   .intro h1 {
