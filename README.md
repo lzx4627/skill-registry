@@ -1,4 +1,4 @@
-# Global Skill Atlas
+# Skill Registry
 
 A local web catalog for browsing installed Codex/agent skills on your own machine.
 
@@ -28,8 +28,8 @@ If a directory contains a `SKILL.md`, it is treated as a skill entry.
 ## Quick Start
 
 ```bash
-git clone <your-repo-url> global-skill-atlas
-cd global-skill-atlas
+git clone <your-repo-url> skill-registry
+cd skill-registry
 python3 server.py
 ```
 

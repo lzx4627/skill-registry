@@ -390,7 +390,7 @@ def main() -> None:
     host = os.environ.get("HOST", "0.0.0.0")
     port = int(os.environ.get("PORT", "4455"))
     server = ThreadingHTTPServer((host, port), Handler)
-    print(f"Serving Global Skill Atlas at http://{host}:{port}")
+    print(f"Serving Skill Registry at http://{host}:{port}")
     server.serve_forever()
 
 
