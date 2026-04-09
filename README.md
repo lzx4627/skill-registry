@@ -92,7 +92,7 @@ Environment variables:
 - `PORT`
   Default: `4455`
 - `CATALOG_REFRESH_MS`
-  Default: `15000`
+  Default: `60000`
 - `SHOW_ABSOLUTE_PATHS`
   Default: disabled  
   Set to `true` to show full absolute filesystem paths instead of `~`-masked paths.

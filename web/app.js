@@ -470,7 +470,7 @@ function setSectionText(selector, text) {
 }
 
 function getRefreshMs() {
-  return state.payload?.config?.refreshMs ?? 15000;
+  return state.payload?.config?.refreshMs ?? 60000;
 }
 
 async function refreshPayload() {

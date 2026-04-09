@@ -8,7 +8,7 @@ services:
       PORT: "4455"
       CODEX_SKILLS_ROOT: "/data/codex-skills"
       AGENTS_SKILLS_ROOT: "/data/agent-skills"
-      CATALOG_REFRESH_MS: "${CATALOG_REFRESH_MS:-15000}"
+      CATALOG_REFRESH_MS: "${CATALOG_REFRESH_MS:-60000}"
       SHOW_ABSOLUTE_PATHS: "${SHOW_ABSOLUTE_PATHS:-false}"
     volumes:
       - "${HOME}/.codex/skills:/data/codex-skills:ro"

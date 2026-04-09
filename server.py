@@ -44,7 +44,7 @@ def resolve_skill_roots() -> list[tuple[str, Path]]:
 
 
 SKILL_ROOTS = resolve_skill_roots()
-REFRESH_MS = int(os.environ.get("CATALOG_REFRESH_MS", "15000"))
+REFRESH_MS = int(os.environ.get("CATALOG_REFRESH_MS", "60000"))
 SHOW_ABSOLUTE_PATHS = os.environ.get("SHOW_ABSOLUTE_PATHS", "").lower() in {
     "1",
     "true",
