@@ -70,8 +70,7 @@ body::before {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
 }
 
 .topbar-actions {
@@ -108,7 +107,6 @@ body::before {
 }
 
 .brand,
-.stamp,
 .eyebrow,
 .panel-kicker,
 .group-kicker,
@@ -129,8 +127,13 @@ body::before {
 }
 
 .stamp {
+  margin: 0;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
   color: var(--muted);
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
 }
 
 .masthead-grid {
@@ -664,13 +667,11 @@ mark.search-hit {
   }
 
   .topbar {
-    flex-direction: column;
-    align-items: start;
+    align-items: center;
   }
 
   .topbar-actions {
-    width: 100%;
-    justify-content: space-between;
+    flex-shrink: 0;
   }
 
   .intro h1 {
