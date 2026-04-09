@@ -14,7 +14,7 @@ Skill Registry scans one or more skill roots, reads `SKILL.md` files, and render
 
 ## What It Is
 
-This project is designed to be cloned and run locally by each user.
+This project is designed to be cloned and run locally on your own machine.
 
 It does **not** bundle your skill inventory. Instead, it inspects the skill directories on the machine where it is running.
 
@@ -121,7 +121,7 @@ node --check web/app.js
 - Risk labels are heuristic. They are inferred by scanning `SKILL.md` text.
 - Search supports short-token prefix matching for short queries like `ui`, `qa`, `pr`.
 - The UI auto-refreshes from `/api/catalog` on a timer.
-- If you publish this repository, others can deploy it locally and inspect their own installed skills; the app does not bundle your skill inventory.
+- If you publish this repository, anyone who clones and runs it will inspect the skills installed on their own machine; the app does not bundle your skill inventory.
 
 ## License
 
