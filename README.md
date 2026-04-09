@@ -1,0 +1,117 @@
+# Global Skill Atlas
+
+A local web catalog for browsing installed Codex/agent skills on your own machine.
+
+It scans one or more skill roots, reads `SKILL.md` files, and renders a searchable UI showing:
+
+- skill names
+- descriptions and `Use when ...` hints
+- source roots
+- duplicate names
+- heuristic risk labels such as `gh issue create`, `git push`, `git worktree`, dependency install, and subagent usage
+
+## What This Project Is
+
+This is meant to be cloned and run locally by each user.
+
+It does **not** ship your own installed skills. Instead, it scans the skill directories on the machine where it is running.
+
+## Default Scan Paths
+
+By default it scans:
+
+- `~/.codex/skills`
+- `~/.agents/skills`
+
+If a directory contains a `SKILL.md`, it is treated as a skill entry.
+
+## Quick Start
+
+```bash
+git clone <your-repo-url> global-skill-atlas
+cd global-skill-atlas
+python3 server.py
+```
+
+Then open:
+
+```text
+http://127.0.0.1:4455
+```
+
+## Docker
+
+You can also run it with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+This mounts your local skill directories read-only into the container:
+
+- `${HOME}/.codex/skills`
+- `${HOME}/.agents/skills`
+
+Then open:
+
+```text
+http://127.0.0.1:4455
+```
+
+## Configuration
+
+Environment variables:
+
+- `HOST`
+  Default: `0.0.0.0`
+- `PORT`
+  Default: `4455`
+- `CATALOG_REFRESH_MS`
+  Default: `15000`
+- `SHOW_ABSOLUTE_PATHS`
+  Default: disabled
+  Set to `true` to show full absolute filesystem paths instead of `~`-masked paths.
+- `CODEX_SKILLS_ROOT`
+  Override the default `~/.codex/skills`
+- `AGENTS_SKILLS_ROOT`
+  Override the default `~/.agents/skills`
+- `SKILL_ROOTS`
+  Optional path list override. If set, it replaces the two defaults entirely.
+  Use your platform path separator:
+  - macOS/Linux: `:`
+  - Windows: `;`
+
+Example:
+
+```bash
+HOST=127.0.0.1 PORT=4455 CATALOG_REFRESH_MS=5000 python3 server.py
+```
+
+Or copy the example env file first:
+
+```bash
+cp .env.example .env
+```
+
+Example with custom roots:
+
+```bash
+SKILL_ROOTS="$HOME/.codex/skills:$HOME/.agents/skills:/some/extra/skills" python3 server.py
+```
+
+## Privacy
+
+By default, displayed paths are masked to `~/...`.
+
+This project is intended for local/self-hosted use. If you expose it on a network, remember that the catalog reflects the installed skills on the host machine.
+
+## Notes
+
+- Risk labels are heuristic. They are inferred by scanning `SKILL.md` text.
+- Search supports short-token prefix matching for short queries like `ui`, `qa`, `pr`.
+- The UI auto-refreshes from `/api/catalog` on a timer.
+- If you publish this repository, others can deploy it locally and inspect their own installed skills; the app does not bundle your skill inventory.
+
+## License
+
+MIT

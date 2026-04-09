@@ -1,0 +1,16 @@
+services:
+  global-skill-atlas:
+    build: .
+    ports:
+      - "${PORT:-4455}:4455"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "4455"
+      CODEX_SKILLS_ROOT: "/data/codex-skills"
+      AGENTS_SKILLS_ROOT: "/data/agent-skills"
+      CATALOG_REFRESH_MS: "${CATALOG_REFRESH_MS:-15000}"
+      SHOW_ABSOLUTE_PATHS: "${SHOW_ABSOLUTE_PATHS:-false}"
+    volumes:
+      - "${HOME}/.codex/skills:/data/codex-skills:ro"
+      - "${HOME}/.agents/skills:/data/agent-skills:ro"
+    restart: unless-stopped

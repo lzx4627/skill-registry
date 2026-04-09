@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Global Skill Atlas</title>
+    <meta
+      name="description"
+      content="实时扫描 ~/.codex/skills 和 ~/.agents/skills，按场景、风险和来源展示全局 skills。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,700&family=Public+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="masthead">
+        <div class="topbar">
+          <p class="brand">Global Skill Atlas</p>
+          <p class="stamp" id="generatedAt">正在读取本机技能目录…</p>
+        </div>
+
+        <div class="masthead-grid">
+          <section class="intro">
+            <p class="eyebrow">Global Skill Directory</p>
+            <h1>一眼看懂这台机器上的全局 skills</h1>
+            <p class="lede">
+              先看扫描范围和总数，再看哪些 skill 会直接建 Issue、装依赖或提交代码，最后按场景去找最合适的 skill。
+              页面会实时读取 <code>~/.codex/skills</code> 和 <code>~/.agents/skills</code>，不是手写清单。
+            </p>
+            <ul class="highlight-list" id="keyPoints"></ul>
+          </section>
+
+          <section class="summary-panel">
+            <div class="summary-grid">
+              <article class="metric-card">
+                <span class="metric-label">全局总数</span>
+                <strong id="metricTotal">--</strong>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label">系统内置</span>
+                <strong id="metricSystem">--</strong>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label" id="metricCustomLabel">根目录 1</span>
+                <strong id="metricCustom">--</strong>
+              </article>
+              <article class="metric-card">
+                <span class="metric-label" id="metricNewLabel">根目录 2</span>
+                <strong id="metricNew">--</strong>
+              </article>
+            </div>
+
+            <div class="summary-foot">
+              <p class="summary-note" id="summaryNote">
+                正在汇总风险标签和安装审计…
+              </p>
+              <div class="badge-row" id="legendRow"></div>
+            </div>
+          </section>
+        </div>
+      </header>
+
+      <main class="layout">
+        <aside class="rail">
+          <section class="panel">
+            <p class="panel-kicker">Quick Start</p>
+            <h2>怎么读这个目录</h2>
+            <div id="scenarioList" class="scenario-list"></div>
+          </section>
+
+          <section class="panel">
+            <p class="panel-kicker">How To Use</p>
+            <h2>怎么触发 skill</h2>
+            <ul class="plain-list" id="usageList"></ul>
+          </section>
+
+          <section class="panel">
+            <p class="panel-kicker">Catalog Notes</p>
+            <h2>目录说明</h2>
+            <div id="auditSummary" class="audit-copy"></div>
+
+            <div class="subpanel">
+              <h3>扫描路径</h3>
+              <ul class="plain-list" id="skippedList"></ul>
+            </div>
+
+            <div class="subpanel">
+              <h3>使用提醒</h3>
+              <ul class="plain-list" id="warningList"></ul>
+            </div>
+          </section>
+        </aside>
+
+        <section class="content">
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <p class="panel-kicker">Auto Discovery</p>
+                <h2>自动发现规则</h2>
+              </div>
+              <p class="section-note">
+                只要新的 skill 被命令行安装到了扫描目录里，这个页面就会把它显示出来。
+              </p>
+            </div>
+            <div id="newInstallStrip" class="tag-cloud"></div>
+          </section>
+
+          <section class="section">
+            <div class="section-head">
+              <div>
+                <p class="panel-kicker">Browse Skills</p>
+                <h2>按来源和风险浏览</h2>
+              </div>
+              <p class="section-note">
+                搜索支持 skill 名、用途、路径和附加文件名。
+              </p>
+            </div>
+
+            <div class="toolbar">
+              <label class="search">
+                <span>搜索</span>
+                <input
+                  id="searchInput"
+                  type="search"
+                  placeholder="例如 tdd, ui, github, issue, plan, imagegen"
+                />
+              </label>
+
+              <div class="filters" id="filters">
+              </div>
+            </div>
+
+            <p id="resultMeta" class="result-meta">正在加载 skill 目录…</p>
+            <div id="skillGroups" class="group-stack"></div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="groupTemplate">
+      <section class="group">
+        <div class="group-head">
+          <div>
+            <p class="group-kicker"></p>
+            <h3 class="group-title"></h3>
+          </div>
+          <p class="group-note"></p>
+        </div>
+        <div class="group-list"></div>
+      </section>
+    </template>
+
+    <template id="skillTemplate">
+      <details class="skill-card">
+        <summary>
+          <div class="skill-summary">
+            <div class="skill-main">
+              <div class="skill-title-row">
+                <h4 class="skill-title"></h4>
+                <div class="badge-row skill-badges"></div>
+              </div>
+              <p class="skill-purpose"></p>
+              <p class="match-reason"></p>
+            </div>
+            <span class="expand-text">展开详情</span>
+          </div>
+        </summary>
+
+        <div class="skill-body">
+          <div class="info-grid">
+            <article class="info-block">
+              <p class="info-label">什么时候用</p>
+              <p class="info-text use-when"></p>
+            </article>
+
+            <article class="info-block">
+              <p class="info-label">怎么直接说</p>
+              <p class="info-text usage-hint"></p>
+            </article>
+
+            <article class="info-block">
+              <p class="info-label">文件路径</p>
+              <code class="info-path"></code>
+            </article>
+
+            <article class="info-block">
+              <p class="info-label">附加文件</p>
+              <p class="info-text extra-files"></p>
+            </article>
+          </div>
+
+          <div class="detail-grid">
+            <article class="info-block">
+              <p class="info-label">文档章节</p>
+              <ul class="mini-list headings"></ul>
+            </article>
+
+            <article class="info-block">
+              <p class="info-label">提醒</p>
+              <ul class="mini-list warnings"></ul>
+            </article>
+          </div>
+        </div>
+      </details>
+    </template>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>
