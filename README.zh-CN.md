@@ -20,6 +20,7 @@ Skill Registry 会扫描一个或多个 skill 根目录，读取其中的 `SKILL
 - 基于 `SKILL.md` 文本做启发式风险标注
 - 能识别不同目录中的重名 skill
 - 默认脱敏路径，只显示 `~/...` 而不是绝对路径
+- 页面支持中英文切换，默认英文
 - 无需构建，直接 `python3 server.py` 就能跑
 - 可选 Docker Compose 运行方式，方便重复部署
 

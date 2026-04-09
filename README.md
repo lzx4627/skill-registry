@@ -20,6 +20,7 @@ Skill Registry scans one or more skill roots, reads `SKILL.md` files, and render
 - Heuristic risk labels inferred from `SKILL.md`
 - Duplicate name detection across different roots
 - Path masking by default so the UI shows `~/...` instead of full absolute paths
+- English / Chinese UI toggle, with English as the default
 - Zero-build setup: just run `python3 server.py`
 - Optional Docker Compose setup for repeatable local deployment
 

@@ -2,7 +2,7 @@ const state = {
   filter: "all",
   query: "",
   payload: null,
-  lang: localStorage.getItem("skill-registry-lang") || "en",
+  lang: resolveInitialLanguage(),
 };
 
 const els = {
@@ -127,11 +127,14 @@ const copy = {
     duplicateGroupTitle: "Duplicate skills",
     duplicateGroupNote:
       "These skill names appear more than once across the configured roots.",
+    duplicateGroupKicker: "Duplicates",
     warningGroupTitle: "Higher-risk skills",
     warningGroupNote:
       "These skills have more obvious side effects or environment assumptions. Check the badges and notes first.",
+    warningGroupKicker: "High Side Effects",
     systemGroupTitle: "Built-in system skills",
     systemGroupNote: "Skills discovered from the built-in system area.",
+    systemGroupKicker: "System Built-In",
     groupRootKicker: (key) => `Root: ${key}`,
     groupRootNote: (label) => `Skills discovered from ${label}.`,
     detailsExpand: "Show details",
@@ -281,11 +284,14 @@ const copy = {
     noMatches: "没有匹配项。换个关键词，或者切回“全部”再看。",
     duplicateGroupTitle: "重名 skill",
     duplicateGroupNote: "这些 skill 名在全局目录里出现了不止一次。",
+    duplicateGroupKicker: "重名",
     warningGroupTitle: "高副作用 skill",
     warningGroupNote:
       "这组 skill 带有较明显的自动动作或环境依赖，使用前先看匹配字段和提醒。",
+    warningGroupKicker: "高副作用",
     systemGroupTitle: "系统内置",
     systemGroupNote: "从系统内置区域发现的 skill。",
+    systemGroupKicker: "系统内置",
     groupRootKicker: (key) => `根目录：${key}`,
     groupRootNote: (label) => `来自 ${label} 的 skill。`,
     detailsExpand: "展开详情",
@@ -379,6 +385,15 @@ async function boot() {
   }, getRefreshMs());
 }
 
+function resolveInitialLanguage() {
+  const urlLang = new URLSearchParams(window.location.search).get("lang");
+  if (urlLang === "en" || urlLang === "zh") {
+    localStorage.setItem("skill-registry-lang", urlLang);
+    return urlLang;
+  }
+  return localStorage.getItem("skill-registry-lang") || "en";
+}
+
 function currentCopy() {
   return copy[state.lang] || copy.en;
 }
@@ -393,6 +408,9 @@ function pickLocalized(value) {
 function setLanguage(lang) {
   state.lang = lang === "zh" ? "zh" : "en";
   localStorage.setItem("skill-registry-lang", state.lang);
+  const url = new URL(window.location.href);
+  url.searchParams.set("lang", state.lang);
+  window.history.replaceState({}, "", url);
   applyLanguageChrome();
   if (state.payload) {
     renderChrome(state.payload);
@@ -684,7 +702,7 @@ function buildGroups(skills) {
   if (state.filter === "duplicates") {
     return [
       {
-        kicker: "Duplicates",
+        kicker: c.duplicateGroupKicker,
         title: c.duplicateGroupTitle,
         note: c.duplicateGroupNote,
         items: sortSkills(skills),
@@ -695,7 +713,7 @@ function buildGroups(skills) {
   if (state.filter === "warnings") {
     return [
       {
-        kicker: "High Side Effects",
+        kicker: c.warningGroupKicker,
         title: c.warningGroupTitle,
         note: c.warningGroupNote,
         items: sortSkills(skills),
@@ -713,7 +731,7 @@ function buildGroups(skills) {
     })),
     {
       key: "system",
-      kicker: "System Built-In",
+      kicker: c.systemGroupKicker,
       title: c.systemGroupTitle,
       note: c.systemGroupNote,
       items: [],
