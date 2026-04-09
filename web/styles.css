@@ -152,9 +152,9 @@ body::before {
 }
 
 .intro h1 {
-  max-width: 10ch;
-  font-size: clamp(34px, 4.8vw, 58px);
-  line-height: 1;
+  max-width: 12ch;
+  font-size: clamp(28px, 3.6vw, 46px);
+  line-height: 1.04;
 }
 
 .lede {
@@ -673,7 +673,7 @@ mark.search-hit {
   }
 
   .intro h1 {
-    font-size: clamp(32px, 11vw, 46px);
+    font-size: clamp(26px, 8.5vw, 38px);
   }
 
   .summary-grid,
