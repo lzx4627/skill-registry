@@ -12,6 +12,28 @@ Skill Registry scans one or more skill roots, reads `SKILL.md` files, and render
 - duplicate names
 - heuristic risk labels such as `gh issue create`, `git push`, `git worktree`, dependency install, and subagent usage
 
+## Features
+
+- Local-first catalog that reflects the skills installed on the current machine
+- Multiple root support for `~/.codex/skills`, `~/.agents/skills`, or custom paths
+- Searchable skill inventory with short-token matching for queries like `ui`, `qa`, and `pr`
+- Heuristic risk labels inferred from `SKILL.md`
+- Duplicate name detection across different roots
+- Path masking by default so the UI shows `~/...` instead of full absolute paths
+- Zero-build setup: just run `python3 server.py`
+- Optional Docker Compose setup for repeatable local deployment
+
+## How It Works
+
+```mermaid
+flowchart LR
+    A[Configured skill roots] --> B[Find directories containing SKILL.md]
+    B --> C[Parse frontmatter and headings]
+    C --> D[Infer warnings from skill text]
+    D --> E[Build /api/catalog payload]
+    E --> F[Render searchable local web UI]
+```
+
 ## What It Is
 
 This project is designed to be cloned and run locally on your own machine.
@@ -99,6 +121,22 @@ Example with custom roots:
 
 ```bash
 SKILL_ROOTS="$HOME/.codex/skills:$HOME/.agents/skills:/some/extra/skills" python3 server.py
+```
+
+## Project Structure
+
+```text
+skill-registry/
+├── server.py                  # local HTTP server + catalog API
+├── web/
+│   ├── index.html             # UI shell
+│   ├── app.js                 # client-side rendering + search logic
+│   └── styles.css             # page styling
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example
+├── README.md
+└── README.zh-CN.md
 ```
 
 ## Privacy

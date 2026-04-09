@@ -12,6 +12,28 @@ Skill Registry 会扫描一个或多个 skill 根目录，读取其中的 `SKILL
 - 重名 skill
 - 启发式风险标签，例如 `gh issue create`、`git push`、`git worktree`、依赖安装、子代理依赖等
 
+## 功能
+
+- 本地优先：页面反映的是当前机器实际安装的 skill
+- 支持多个根目录，例如 `~/.codex/skills`、`~/.agents/skills` 或自定义路径
+- 支持搜索，且对 `ui`、`qa`、`pr` 这类短查询做更严格的匹配
+- 基于 `SKILL.md` 文本做启发式风险标注
+- 能识别不同目录中的重名 skill
+- 默认脱敏路径，只显示 `~/...` 而不是绝对路径
+- 无需构建，直接 `python3 server.py` 就能跑
+- 可选 Docker Compose 运行方式，方便重复部署
+
+## 工作原理
+
+```mermaid
+flowchart LR
+    A[配置好的 skill 根目录] --> B[查找包含 SKILL.md 的目录]
+    B --> C[解析 frontmatter 和标题]
+    C --> D[从技能文本中推断风险标签]
+    D --> E[生成 /api/catalog 数据]
+    E --> F[渲染可搜索的本地网页目录]
+```
+
 ## 这是什么
 
 这个项目的定位是：你把仓库 clone 到自己的机器上，本地运行，然后查看**自己机器**上的 skill 目录。
@@ -99,6 +121,22 @@ cp .env.example .env
 
 ```bash
 SKILL_ROOTS="$HOME/.codex/skills:$HOME/.agents/skills:/some/extra/skills" python3 server.py
+```
+
+## 项目结构
+
+```text
+skill-registry/
+├── server.py                  # 本地 HTTP 服务和目录 API
+├── web/
+│   ├── index.html             # 页面骨架
+│   ├── app.js                 # 前端渲染和搜索逻辑
+│   └── styles.css             # 页面样式
+├── Dockerfile
+├── docker-compose.yml
+├── .env.example
+├── README.md
+└── README.zh-CN.md
 ```
 
 ## 隐私说明
