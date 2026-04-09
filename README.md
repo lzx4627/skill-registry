@@ -1,8 +1,10 @@
 # Skill Registry
 
-A local web catalog for browsing installed Codex/agent skills on your own machine.
+[中文说明](./README.zh-CN.md)
 
-It scans one or more skill roots, reads `SKILL.md` files, and renders a searchable UI showing:
+A local web catalog for browsing, auditing, and managing installed Codex and agent skills on your own machine.
+
+Skill Registry scans one or more skill roots, reads `SKILL.md` files, and renders a searchable UI with:
 
 - skill names
 - descriptions and `Use when ...` hints
@@ -10,11 +12,11 @@ It scans one or more skill roots, reads `SKILL.md` files, and renders a searchab
 - duplicate names
 - heuristic risk labels such as `gh issue create`, `git push`, `git worktree`, dependency install, and subagent usage
 
-## What This Project Is
+## What It Is
 
-This is meant to be cloned and run locally by each user.
+This project is designed to be cloned and run locally by each user.
 
-It does **not** ship your own installed skills. Instead, it scans the skill directories on the machine where it is running.
+It does **not** bundle your skill inventory. Instead, it inspects the skill directories on the machine where it is running.
 
 ## Default Scan Paths
 
@@ -69,7 +71,7 @@ Environment variables:
 - `CATALOG_REFRESH_MS`
   Default: `15000`
 - `SHOW_ABSOLUTE_PATHS`
-  Default: disabled
+  Default: disabled  
   Set to `true` to show full absolute filesystem paths instead of `~`-masked paths.
 - `CODEX_SKILLS_ROOT`
   Override the default `~/.codex/skills`
@@ -87,7 +89,7 @@ Example:
 HOST=127.0.0.1 PORT=4455 CATALOG_REFRESH_MS=5000 python3 server.py
 ```
 
-Or copy the example env file first:
+You can also copy the example env file first:
 
 ```bash
 cp .env.example .env
@@ -104,6 +106,15 @@ SKILL_ROOTS="$HOME/.codex/skills:$HOME/.agents/skills:/some/extra/skills" python
 By default, displayed paths are masked to `~/...`.
 
 This project is intended for local/self-hosted use. If you expose it on a network, remember that the catalog reflects the installed skills on the host machine.
+
+## Development Checks
+
+Local checks:
+
+```bash
+python3 -m py_compile server.py
+node --check web/app.js
+```
 
 ## Notes
 
