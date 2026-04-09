@@ -53,74 +53,198 @@ SHOW_ABSOLUTE_PATHS = os.environ.get("SHOW_ABSOLUTE_PATHS", "").lower() in {
 
 MANUAL_NOTES = {
     "design-an-interface": [
-        "最佳效果依赖并行子代理；没有 delegation 能力时会降级为单线程设计比较。",
+        {
+            "en": "Best results depend on parallel subagents; without delegation it degrades to a single-threaded comparison workflow.",
+            "zh": "最佳效果依赖并行子代理；没有 delegation 能力时会降级为单线程设计比较。",
+        },
     ],
     "github-triage": [
-        "依赖 `gh` 和一套约定好的 GitHub labels / 状态机。",
+        {
+            "en": "Depends on `gh` plus a pre-defined GitHub label and state workflow.",
+            "zh": "依赖 `gh` 和一套约定好的 GitHub labels / 状态机。",
+        },
     ],
     "improve-codebase-architecture": [
-        "流程默认会创建 GitHub issue RFC。",
-        "最佳效果依赖子代理探索代码库。",
+        {
+            "en": "The default workflow creates a GitHub issue RFC.",
+            "zh": "流程默认会创建 GitHub issue RFC。",
+        },
+        {
+            "en": "Best results depend on subagents exploring the codebase.",
+            "zh": "最佳效果依赖子代理探索代码库。",
+        },
     ],
     "migrate-to-shoehorn": [
-        "只适合 TypeScript 测试代码，而且需要 `@total-typescript/shoehorn`。",
+        {
+            "en": "Only suitable for TypeScript test code and requires `@total-typescript/shoehorn`.",
+            "zh": "只适合 TypeScript 测试代码，而且需要 `@total-typescript/shoehorn`。",
+        },
     ],
     "prd-to-issues": [
-        "会按流程直接创建 GitHub issues。",
+        {
+            "en": "The workflow creates GitHub issues directly.",
+            "zh": "会按流程直接创建 GitHub issues。",
+        },
     ],
     "prd-to-plan": [
-        "会把输出落到当前仓库的 `./plans/`。",
+        {
+            "en": "Writes output into the current repository's `./plans/` directory.",
+            "zh": "会把输出落到当前仓库的 `./plans/`。",
+        },
     ],
     "qa": [
-        "按原说明会在对话后直接创建 GitHub issues。",
-        "最佳效果依赖后台代码探索或子代理。",
+        {
+            "en": "The original workflow creates GitHub issues during the session.",
+            "zh": "按原说明会在对话后直接创建 GitHub issues。",
+        },
+        {
+            "en": "Best results depend on background code exploration or subagents.",
+            "zh": "最佳效果依赖后台代码探索或子代理。",
+        },
     ],
     "request-refactor-plan": [
-        "会把重构方案提交成 GitHub issue。",
+        {
+            "en": "Submits the refactor plan as a GitHub issue.",
+            "zh": "会把重构方案提交成 GitHub issue。",
+        },
     ],
     "setup-pre-commit": [
-        "会安装依赖、改 hook 配置，并建议直接提交 commit。",
+        {
+            "en": "Installs dependencies, edits hook configuration, and suggests committing the result.",
+            "zh": "会安装依赖、改 hook 配置，并建议直接提交 commit。",
+        },
     ],
     "triage-issue": [
-        "按原说明会直接创建 GitHub issue。",
-        "最佳效果依赖子代理做根因探索。",
+        {
+            "en": "The original workflow creates a GitHub issue directly.",
+            "zh": "按原说明会直接创建 GitHub issue。",
+        },
+        {
+            "en": "Best results depend on subagents doing root-cause exploration.",
+            "zh": "最佳效果依赖子代理做根因探索。",
+        },
     ],
     "ubiquitous-language": [
-        "会在当前工作目录生成或覆写 `UBIQUITOUS_LANGUAGE.md`。",
+        {
+            "en": "Writes or rewrites `UBIQUITOUS_LANGUAGE.md` in the current working directory.",
+            "zh": "会在当前工作目录生成或覆写 `UBIQUITOUS_LANGUAGE.md`。",
+        },
     ],
     "write-a-prd": [
-        "最终产出默认是 GitHub issue，而不是本地文档。",
+        {
+            "en": "The default final output is a GitHub issue rather than a local document.",
+            "zh": "最终产出默认是 GitHub issue，而不是本地文档。",
+        },
     ],
     "brainstorming": [
-        "这是 superpowers 工作流的一部分，偏规范驱动，不是一次性的单点技巧。",
+        {
+            "en": "Part of the superpowers workflow system; more process-oriented than a one-off utility skill.",
+            "zh": "这是 superpowers 工作流的一部分，偏规范驱动，不是一次性的单点技巧。",
+        },
     ],
     "dispatching-parallel-agents": [
-        "依赖并行子代理能力，适合复杂任务拆分。",
+        {
+            "en": "Depends on parallel subagent capability and is best suited for complex task decomposition.",
+            "zh": "依赖并行子代理能力，适合复杂任务拆分。",
+        },
     ],
     "finishing-a-development-branch": [
-        "流程里可能涉及 `git push`、创建 PR 和清理 worktree。",
+        {
+            "en": "The workflow may include `git push`, PR creation, and worktree cleanup.",
+            "zh": "流程里可能涉及 `git push`、创建 PR 和清理 worktree。",
+        },
     ],
     "subagent-driven-development": [
-        "是强流程型 skill，默认要求先有计划、再分发子代理执行。",
+        {
+            "en": "A strongly process-oriented skill that assumes planning first and subagent execution second.",
+            "zh": "是强流程型 skill，默认要求先有计划、再分发子代理执行。",
+        },
     ],
     "systematic-debugging": [
-        "适合复杂排障，流程更重，但比拍脑袋试错稳得多。",
+        {
+            "en": "Best for complex debugging; heavier process, but much more reliable than ad-hoc trial and error.",
+            "zh": "适合复杂排障，流程更重，但比拍脑袋试错稳得多。",
+        },
     ],
     "test-driven-development": [
-        "这是 superpowers 版本的 TDD，与现有 `tdd` skill 不同名但理念相近。",
+        {
+            "en": "This is the superpowers version of TDD; conceptually similar to `tdd` but not the same skill.",
+            "zh": "这是 superpowers 版本的 TDD，与现有 `tdd` skill 不同名但理念相近。",
+        },
     ],
     "using-git-worktrees": [
-        "会创建独立 git worktree，并可能安装依赖、跑基线测试。",
+        {
+            "en": "Creates a dedicated git worktree and may install dependencies or run baseline checks.",
+            "zh": "会创建独立 git worktree，并可能安装依赖、跑基线测试。",
+        },
     ],
     "using-superpowers": [
-        "这是 superpowers 的入口说明 skill，用来理解整套工作流。",
+        {
+            "en": "Entry-point documentation for understanding the full superpowers workflow system.",
+            "zh": "这是 superpowers 的入口说明 skill，用来理解整套工作流。",
+        },
     ],
     "writing-plans": [
-        "偏工程执行计划，不是产品 PRD；输出粒度通常更细。",
+        {
+            "en": "Focused on engineering execution plans rather than product PRDs; output tends to be more granular.",
+            "zh": "偏工程执行计划，不是产品 PRD；输出粒度通常更细。",
+        },
     ],
     "writing-skills": [
-        "这是 superpowers 版本的写 skill 方法论，与现有 `write-a-skill` 不同名。",
+        {
+            "en": "This is the superpowers approach to writing skills, distinct from `write-a-skill`.",
+            "zh": "这是 superpowers 版本的写 skill 方法论，与现有 `write-a-skill` 不同名。",
+        },
     ],
+}
+
+CATALOG_ASSESSMENT = [
+    {
+        "en": "This catalog reflects only the skills that actually exist under the configured scan roots on the current machine.",
+        "zh": "这个目录页只反映当前机器在配置扫描路径下真实存在的 skill。",
+    },
+    {
+        "en": "The discovery rule is simple: if a directory contains `SKILL.md`, it is treated as a skill.",
+        "zh": "扫描条件很简单：目录里存在 `SKILL.md` 就会被视为一个 skill。",
+    },
+    {
+        "en": "Risk labels are heuristic and inferred from `SKILL.md` text, not from a static allowlist.",
+        "zh": "风险标签是基于 `SKILL.md` 文本内容的启发式判断，不是静态白名单。",
+    },
+    {
+        "en": "Paths are masked with a `~` prefix by default. Set `SHOW_ABSOLUTE_PATHS=true` if you need full absolute paths.",
+        "zh": "默认路径展示会脱敏成 `~` 前缀；如需真实绝对路径，可设置 `SHOW_ABSOLUTE_PATHS=true`。",
+    },
+]
+
+GLOBAL_WARNINGS = [
+    {
+        "en": "Duplicate names mean the same skill name exists in more than one root, which can make discovery and trigger reasoning less obvious.",
+        "zh": "同名 skill 表示相同名称在多个目录里同时存在，可能影响理解和触发判断。",
+    },
+    {
+        "en": "Some skills assume subagent capability; in sessions without delegation they may degrade to a simpler workflow.",
+        "zh": "部分 skill 假设具备子代理能力；在不允许 delegation 的会话里会降级。",
+    },
+    {
+        "en": "If a skill involves `gh issue create`, `git push`, `gh pr create`, `git commit`, or dependency installation, verify the current repository and account context first.",
+        "zh": "若某个 skill 涉及 `gh issue create`、`git push`、`gh pr create`、`git commit` 或依赖安装，建议先确认当前仓库和账号上下文。",
+    },
+]
+
+USAGE_COPY = {
+    "direct": {
+        "en": "Call a skill explicitly in your request, for example `$tdd` or `Use write-a-prd to organize this requirement`.",
+        "zh": "直接在请求里点名 skill，例如 `$tdd` 或 “用 write-a-prd 帮我整理这个需求”。",
+    },
+    "natural": {
+        "en": "You can also describe the scenario naturally; matching is inferred from each skill's description and `Use when ...` hint.",
+        "zh": "也可以只描述场景；系统会根据每个 skill 的 `description` 和 `Use when ...` 自动尝试匹配。",
+    },
+    "safety": {
+        "en": "Risk badges are heuristic and derived from documentation text, so you should still apply human judgment before using a skill.",
+        "zh": "目录页里的风险标签来自文档启发式扫描，使用前仍建议人工判断上下文。",
+    },
 }
 
 
@@ -200,41 +324,125 @@ def mask_path(path: Path) -> str:
         return str(resolved)
 
 
-def classify_warnings(name: str, body: str) -> list[dict[str, str]]:
-    warnings: list[dict[str, str]] = []
+def classify_warnings(name: str, body: str) -> list[dict[str, object]]:
+    warnings: list[dict[str, object]] = []
 
-    def add(flag_id: str, label: str, detail: str) -> None:
-        warnings.append({"id": flag_id, "label": label, "detail": detail})
+    def add(flag_id: str) -> None:
+        warnings.append(
+            {
+                "id": flag_id,
+                "label": warning_label(flag_id),
+                "detail": warning_detail(flag_id),
+            }
+        )
 
     if re.search(r"\bgh issue create\b", body):
-        add("writes-issues", "会直接建 Issue", "按原说明会调用 `gh issue create`。")
+        add("writes-issues")
     if re.search(r"\bgit push\b|\bgh pr create\b", body):
-        add("pushes-or-prs", "会推分支或开 PR", "说明文档里包含 `git push` 或 `gh pr create`。")
+        add("pushes-or-prs")
     if re.search(r"\bgit commit\b|commit with message", body, re.IGNORECASE):
-        add("creates-commit", "会建议直接提交", "按原说明会进入 `git commit` 流程。")
+        add("creates-commit")
     if re.search(r"\bgit worktree add\b|\busing-git-worktrees\b", body, re.IGNORECASE):
-        add("creates-worktree", "会创建 worktree", "技能流程里包含 git worktree 工作区管理。")
+        add("creates-worktree")
     if re.search(
         r"\bnpm i\b|\bnpm install\b|\bpnpm add\b|\byarn add\b|\bpip install\b|\bbrew install\b|\bapt(?:-get)? install\b",
         body,
         re.IGNORECASE,
     ):
-        add("installs-packages", "会装依赖", "技能步骤里包含依赖安装。")
+        add("installs-packages")
     if re.search(r"sub-agent|subagent|parallel sub-agents|Agent tool", body, re.IGNORECASE):
-        add("needs-subagents", "依赖子代理", "说明文档里把并行子代理作为主流程的一部分。")
+        add("needs-subagents")
     if re.search(r"/mnt/|/Users/|C:\\\\|D:\\\\", body):
-        add("hardcoded-path", "硬编码路径", "文档里包含固定本地路径，跨机器可移植性较差。")
+        add("hardcoded-path")
     if "Claude Code" in body:
-        add("claude-only", "Claude 专用", "说明直接面向 Claude Code。")
+        add("claude-only")
     if "ai-hero-cli" in body:
-        add("repo-specific", "项目特定工具", "依赖 `ai-hero-cli` 约定。")
+        add("repo-specific")
     if "@total-typescript/shoehorn" in body:
-        add("niche-tooling", "窄场景工具", "依赖 `@total-typescript/shoehorn`。")
+        add("niche-tooling")
 
     for note in MANUAL_NOTES.get(name, []):
-        add("note", "补充提醒", note)
+        warnings.append(
+            {
+                "id": "note",
+                "label": {"en": "Extra note", "zh": "补充提醒"},
+                "detail": note,
+            }
+        )
 
     return warnings
+
+
+def warning_label(flag_id: str) -> dict[str, str]:
+    labels = {
+        "writes-issues": {"en": "Creates issues", "zh": "会直接建 Issue"},
+        "pushes-or-prs": {"en": "Pushes or opens PRs", "zh": "会推分支或开 PR"},
+        "creates-commit": {"en": "Suggests commits", "zh": "会建议直接提交"},
+        "creates-worktree": {"en": "Creates worktrees", "zh": "会创建 worktree"},
+        "installs-packages": {"en": "Installs packages", "zh": "会装依赖"},
+        "needs-subagents": {"en": "Needs subagents", "zh": "依赖子代理"},
+        "hardcoded-path": {"en": "Hardcoded paths", "zh": "硬编码路径"},
+        "claude-only": {"en": "Claude-specific", "zh": "Claude 专用"},
+        "repo-specific": {"en": "Repo-specific tooling", "zh": "项目特定工具"},
+        "niche-tooling": {"en": "Niche tooling", "zh": "窄场景工具"},
+        "duplicate-name": {"en": "Duplicate name", "zh": "名字重复"},
+        "note": {"en": "Extra note", "zh": "补充提醒"},
+    }
+    return labels.get(flag_id, {"en": flag_id, "zh": flag_id})
+
+
+def warning_detail(flag_id: str) -> dict[str, str]:
+    details = {
+        "writes-issues": {
+            "en": "The documented workflow calls `gh issue create` directly.",
+            "zh": "按原说明会调用 `gh issue create`。",
+        },
+        "pushes-or-prs": {
+            "en": "The documented workflow includes `git push` or `gh pr create`.",
+            "zh": "说明文档里包含 `git push` 或 `gh pr create`。",
+        },
+        "creates-commit": {
+            "en": "The documented workflow enters a `git commit` step.",
+            "zh": "按原说明会进入 `git commit` 流程。",
+        },
+        "creates-worktree": {
+            "en": "The workflow includes git worktree management.",
+            "zh": "技能流程里包含 git worktree 工作区管理。",
+        },
+        "installs-packages": {
+            "en": "The workflow includes dependency installation.",
+            "zh": "技能步骤里包含依赖安装。",
+        },
+        "needs-subagents": {
+            "en": "The documented flow assumes subagents as a core part of execution.",
+            "zh": "说明文档里把并行子代理作为主流程的一部分。",
+        },
+        "hardcoded-path": {
+            "en": "The documentation includes fixed local paths and may be less portable across machines.",
+            "zh": "文档里包含固定本地路径，跨机器可移植性较差。",
+        },
+        "claude-only": {
+            "en": "The documentation is explicitly written for Claude Code.",
+            "zh": "说明直接面向 Claude Code。",
+        },
+        "repo-specific": {
+            "en": "The skill depends on project-specific tooling or conventions.",
+            "zh": "依赖项目特定工具或约定。",
+        },
+        "niche-tooling": {
+            "en": "The skill depends on a narrow, specialized tool.",
+            "zh": "依赖窄场景的专用工具。",
+        },
+        "duplicate-name": {
+            "en": "The same skill name exists more than once across the scanned roots.",
+            "zh": "全局目录里存在同名 skill，判断触发来源时要留意。",
+        },
+        "note": {
+            "en": "Additional context for this skill.",
+            "zh": "这个 skill 的补充背景说明。",
+        },
+    }
+    return details.get(flag_id, {"en": flag_id, "zh": flag_id})
 
 
 def collect_skills() -> list[dict[str, object]]:
@@ -294,8 +502,11 @@ def collect_skills() -> list[dict[str, object]]:
             item["warnings"].append(
                 {
                     "id": "duplicate-name",
-                    "label": "名字重复",
-                    "detail": "全局目录里存在同名 skill，判断触发来源时要留意。",
+                    "label": warning_label("duplicate-name"),
+                    "detail": {
+                        "en": "The same skill name exists more than once across the scanned roots.",
+                        "zh": "全局目录里存在同名 skill，判断触发来源时要留意。",
+                    },
                 }
             )
 
@@ -322,25 +533,12 @@ def build_payload() -> dict[str, object]:
     audit = {
         "catalog": {
             "roots": root_labels,
-            "assessment": [
-                "这个目录页只反映当前机器在配置扫描路径下真实存在的 skill。",
-                "扫描条件很简单：目录里存在 `SKILL.md` 就会被视为一个 skill。",
-                "风险标签是基于 `SKILL.md` 文本内容的启发式判断，不是静态白名单。",
-                "默认路径展示会脱敏成 `~` 前缀；如需真实绝对路径，可设置 `SHOW_ABSOLUTE_PATHS=true`。",
-            ],
+            "assessment": CATALOG_ASSESSMENT,
         },
-        "globalWarnings": [
-            "同名 skill 表示相同名称在多个目录里同时存在，可能影响理解和触发判断。",
-            "部分 skill 假设具备子代理能力；在不允许 delegation 的会话里会降级。",
-            "若某个 skill 涉及 `gh issue create`、`git push`、`gh pr create`、`git commit` 或依赖安装，建议先确认当前仓库和账号上下文。",
-        ],
+        "globalWarnings": GLOBAL_WARNINGS,
     }
 
-    usage = {
-        "direct": "直接在请求里点名 skill，例如 `$tdd` 或 “用 write-a-prd 帮我整理这个需求”。",
-        "natural": "也可以只描述场景；系统会根据每个 skill 的 `description` 和 `Use when ...` 自动尝试匹配。",
-        "safety": "目录页里的风险标签来自文档启发式扫描，使用前仍建议人工判断上下文。",
-    }
+    usage = USAGE_COPY
 
     config = {
         "refreshMs": REFRESH_MS,

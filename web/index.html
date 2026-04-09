@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -9,7 +9,7 @@
     <title>Skill Registry</title>
     <meta
       name="description"
-      content="实时扫描 ~/.codex/skills 和 ~/.agents/skills，按场景、风险和来源展示全局 skills。"
+      content="Browse and audit installed Codex and agent skills from local skill roots."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,16 +24,22 @@
       <header class="masthead">
         <div class="topbar">
           <p class="brand">Skill Registry</p>
-          <p class="stamp" id="generatedAt">正在读取本机技能目录…</p>
+          <div class="topbar-actions">
+            <div class="lang-switch" id="langSwitch">
+              <button class="lang-button is-active" data-lang="en" type="button">EN</button>
+              <button class="lang-button" data-lang="zh" type="button">中文</button>
+            </div>
+            <p class="stamp" id="generatedAt">Loading local skill catalog…</p>
+          </div>
         </div>
 
         <div class="masthead-grid">
           <section class="intro">
             <p class="eyebrow">Global Skill Directory</p>
-            <h1>一眼看懂这台机器上的全局 skills</h1>
+            <h1>Understand your local skills at a glance</h1>
             <p class="lede">
-              先看扫描范围和总数，再看哪些 skill 会直接建 Issue、装依赖或提交代码，最后按场景去找最合适的 skill。
-              页面会实时读取 <code>~/.codex/skills</code> 和 <code>~/.agents/skills</code>，不是手写清单。
+              Start with the scan roots and totals, then review which skills create issues, install packages, or manipulate git state.
+              The page reads <code>~/.codex/skills</code> and <code>~/.agents/skills</code> directly instead of using a hand-written inventory.
             </p>
             <ul class="highlight-list" id="keyPoints"></ul>
           </section>
@@ -41,26 +47,26 @@
           <section class="summary-panel">
             <div class="summary-grid">
               <article class="metric-card">
-                <span class="metric-label">全局总数</span>
+                <span class="metric-label">Total skills</span>
                 <strong id="metricTotal">--</strong>
               </article>
               <article class="metric-card">
-                <span class="metric-label">系统内置</span>
+                <span class="metric-label">Built-in system skills</span>
                 <strong id="metricSystem">--</strong>
               </article>
               <article class="metric-card">
-                <span class="metric-label" id="metricCustomLabel">根目录 1</span>
+                <span class="metric-label" id="metricCustomLabel">Root 1</span>
                 <strong id="metricCustom">--</strong>
               </article>
               <article class="metric-card">
-                <span class="metric-label" id="metricNewLabel">根目录 2</span>
+                <span class="metric-label" id="metricNewLabel">Root 2</span>
                 <strong id="metricNew">--</strong>
               </article>
             </div>
 
             <div class="summary-foot">
               <p class="summary-note" id="summaryNote">
-                正在汇总风险标签和安装审计…
+                Loading catalog summary…
               </p>
               <div class="badge-row" id="legendRow"></div>
             </div>
@@ -72,28 +78,28 @@
         <aside class="rail">
           <section class="panel">
             <p class="panel-kicker">Quick Start</p>
-            <h2>怎么读这个目录</h2>
+            <h2>How to read this catalog</h2>
             <div id="scenarioList" class="scenario-list"></div>
           </section>
 
           <section class="panel">
             <p class="panel-kicker">How To Use</p>
-            <h2>怎么触发 skill</h2>
+            <h2>How to invoke a skill</h2>
             <ul class="plain-list" id="usageList"></ul>
           </section>
 
           <section class="panel">
             <p class="panel-kicker">Catalog Notes</p>
-            <h2>目录说明</h2>
+            <h2>Catalog notes</h2>
             <div id="auditSummary" class="audit-copy"></div>
 
             <div class="subpanel">
-              <h3>扫描路径</h3>
+              <h3>Scan roots</h3>
               <ul class="plain-list" id="skippedList"></ul>
             </div>
 
             <div class="subpanel">
-              <h3>使用提醒</h3>
+              <h3>Usage warnings</h3>
               <ul class="plain-list" id="warningList"></ul>
             </div>
           </section>
@@ -104,10 +110,10 @@
             <div class="section-head">
               <div>
                 <p class="panel-kicker">Auto Discovery</p>
-                <h2>自动发现规则</h2>
+                <h2>Discovery rules</h2>
               </div>
               <p class="section-note">
-                只要新的 skill 被命令行安装到了扫描目录里，这个页面就会把它显示出来。
+                As soon as a new skill lands in a configured root, the page will pick it up automatically.
               </p>
             </div>
             <div id="newInstallStrip" class="tag-cloud"></div>
@@ -117,20 +123,20 @@
             <div class="section-head">
               <div>
                 <p class="panel-kicker">Browse Skills</p>
-                <h2>按来源和风险浏览</h2>
+                <h2>Browse by source and risk</h2>
               </div>
               <p class="section-note">
-                搜索支持 skill 名、用途、路径和附加文件名。
+                Search supports names, usage hints, paths, and extra resource filenames.
               </p>
             </div>
 
             <div class="toolbar">
               <label class="search">
-                <span>搜索</span>
+                <span>Search</span>
                 <input
                   id="searchInput"
                   type="search"
-                  placeholder="例如 tdd, ui, github, issue, plan, imagegen"
+                  placeholder="For example: tdd, ui, github, issue, plan, imagegen"
                 />
               </label>
 
@@ -138,7 +144,7 @@
               </div>
             </div>
 
-            <p id="resultMeta" class="result-meta">正在加载 skill 目录…</p>
+            <p id="resultMeta" class="result-meta">Loading skill catalog…</p>
             <div id="skillGroups" class="group-stack"></div>
           </section>
         </section>
@@ -170,41 +176,41 @@
               <p class="skill-purpose"></p>
               <p class="match-reason"></p>
             </div>
-            <span class="expand-text">展开详情</span>
+            <span class="expand-text">Show details</span>
           </div>
         </summary>
 
         <div class="skill-body">
           <div class="info-grid">
             <article class="info-block">
-              <p class="info-label">什么时候用</p>
+              <p class="info-label">When to use</p>
               <p class="info-text use-when"></p>
             </article>
 
             <article class="info-block">
-              <p class="info-label">怎么直接说</p>
+              <p class="info-label">How to ask for it</p>
               <p class="info-text usage-hint"></p>
             </article>
 
             <article class="info-block">
-              <p class="info-label">文件路径</p>
+              <p class="info-label">Path</p>
               <code class="info-path"></code>
             </article>
 
             <article class="info-block">
-              <p class="info-label">附加文件</p>
+              <p class="info-label">Extra files</p>
               <p class="info-text extra-files"></p>
             </article>
           </div>
 
           <div class="detail-grid">
             <article class="info-block">
-              <p class="info-label">文档章节</p>
+              <p class="info-label">Document sections</p>
               <ul class="mini-list headings"></ul>
             </article>
 
             <article class="info-block">
-              <p class="info-label">提醒</p>
+              <p class="info-label">Warnings</p>
               <ul class="mini-list warnings"></ul>
             </article>
           </div>
